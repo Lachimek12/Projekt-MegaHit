@@ -21,3 +21,6 @@ ExportedObj/
 *.mdb
 *.opendb
 *.VC.db
+
+#Some random useless reports
+UpgradeLog.htm
