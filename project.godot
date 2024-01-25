@@ -18,6 +18,10 @@ config/features=PackedStringArray("4.2", "C#", "Mobile")
 
 project/assembly_name="Projekt z Robsonem"
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/smoothing/plugin.cfg")
+
 [physics]
 
 2d/default_gravity=2500.0
@@ -25,3 +29,4 @@ project/assembly_name="Projekt z Robsonem"
 [rendering]
 
 renderer/rendering_method="mobile"
+viewport/hdr_2d=true

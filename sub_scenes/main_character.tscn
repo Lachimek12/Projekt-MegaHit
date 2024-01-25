@@ -1,9 +1,13 @@
-[gd_scene load_steps=30 format=3 uid="uid://ngeefxppb2tr"]
+[gd_scene load_steps=31 format=3 uid="uid://ngeefxppb2tr"]
 
 [ext_resource type="Script" path="res://sub_scenes/main_character.cs" id="1_wrd3n"]
 [ext_resource type="Texture2D" uid="uid://ba6syo0xfdgij" path="res://images/Idle (32x32).png" id="2_8u6h5"]
+[ext_resource type="Script" path="res://addons/smoothing/smoothing_2d.gd" id="2_phns1"]
 [ext_resource type="Texture2D" uid="uid://bkh0dpkf52hcc" path="res://images/Jump (32x32).png" id="3_w4s2i"]
 [ext_resource type="Texture2D" uid="uid://d3kpofxh11me1" path="res://images/Run (32x32).png" id="4_mqcwo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_keepw"]
+size = Vector2(59.4837, 72)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dakpg"]
 atlas = ExtResource("2_8u6h5")
@@ -187,22 +191,30 @@ animations = [{
 "speed": 15.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_keepw"]
-size = Vector2(63, 80)
-
 [node name="CharacterBody2D" type="CharacterBody2D" node_paths=PackedStringArray("characterSprite")]
 position = Vector2(397, 390)
 script = ExtResource("1_wrd3n")
-characterSprite = NodePath("Sprite2D")
+characterSprite = NodePath("Smoothing2D/Sprite2D")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-4, 1)
+scale = Vector2(0.874189, 1)
+shape = SubResource("RectangleShape2D_keepw")
+
+[node name="Smoothing2D" type="Node2D" parent="."]
+script = ExtResource("2_phns1")
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Smoothing2D"]
+modulate = Color(1, 1, 1.03, 1)
 texture_filter = 1
 position = Vector2(-5, -11)
 scale = Vector2(3, 3)
 sprite_frames = SubResource("SpriteFrames_2axql")
 autoplay = "default"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-3.99998, -3)
-scale = Vector2(0.874189, 1)
-shape = SubResource("RectangleShape2D_keepw")
+[node name="Camera2D" type="Camera2D" parent="."]
+limit_top = 0
+limit_bottom = 648
+position_smoothing_enabled = true
+position_smoothing_speed = 12.0
+editor_draw_limits = true
