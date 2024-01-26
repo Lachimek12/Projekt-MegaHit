@@ -10,6 +10,8 @@ public partial class projectile : Area2D
 
 	private const float Speed = 800.0f;
 	public float direction = 1;
+	private double timePassedToDestroy = 0;
+	private bool outOfWindow = false;
 
 
 	//////////////////////////////////////////////////////
@@ -29,6 +31,16 @@ public partial class projectile : Area2D
 		Vector2 velocity = Vector2.Zero;
 		velocity.X = Speed * (float)delta * direction;
 		Translate(velocity);
+
+		// Thanks to that the trail behind the bullet can also exit the window screen and not just disappear
+		if (outOfWindow)
+		{
+			timePassedToDestroy += delta;
+			if (timePassedToDestroy > 0.5)
+			{
+				QueueFree();
+			}
+		}
     }
 
 
@@ -39,7 +51,7 @@ public partial class projectile : Area2D
 
 	public void _on_visible_on_screen_notifier_2d_screen_exited()
 	{
-		QueueFree();
+		outOfWindow = true;
 	}
 
 	public void _on_body_entered(Node2D body)

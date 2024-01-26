@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://s2nf6fl7ql6u"]
+[gd_scene load_steps=5 format=3 uid="uid://s2nf6fl7ql6u"]
 
 [ext_resource type="Texture2D" uid="uid://bym2duibads4e" path="res://images/Box3.png" id="1_7rmbp"]
 [ext_resource type="Script" path="res://sub_scenes/projectile.cs" id="1_c0uyu"]
+[ext_resource type="PackedScene" uid="uid://bwbryolp1s1ju" path="res://sub_scenes/trail.tscn" id="3_kjylr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rvwjf"]
 
@@ -17,6 +18,8 @@ texture = ExtResource("1_7rmbp")
 shape = SubResource("RectangleShape2D_rvwjf")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Trail" parent="." instance=ExtResource("3_kjylr")]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

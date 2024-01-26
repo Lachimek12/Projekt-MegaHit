@@ -8,8 +8,11 @@ public partial class main_character : CharacterBody2D
 	//////////////////////////////////////////////////////
 
 
-	public const float Speed = 400.0f;
-	public const float JumpVelocity = -900.0f;
+	private const float Speed = 400.0f;
+	private const float JumpVelocity = -900.0f;
+	// Variables to add cooldown for player shooting
+	private const float TimeBetweenShots = 0.1f;
+	private double timeAfterShot = TimeBetweenShots;
 
 	// Get projectile asset
 	public PackedScene Projectile = GD.Load<PackedScene>("res://sub_scenes/projectile.tscn");
@@ -29,6 +32,11 @@ public partial class main_character : CharacterBody2D
 	public override void _PhysicsProcess(double delta)
 	{
 		Vector2 velocity = Velocity;
+
+		if (timeAfterShot <= TimeBetweenShots)
+		{
+			timeAfterShot += delta;
+		}
 
 		// Handle animation state
 		if (velocity.X > 1 || velocity.X < -1)
@@ -54,24 +62,9 @@ public partial class main_character : CharacterBody2D
 		}
 
 		//Handle shooting
-		if (Input.IsActionJustPressed("shoot"))
+		if (Input.IsActionJustPressed("shoot") && timeAfterShot >= TimeBetweenShots)
 		{
-			Node2D bullet = (Node2D)Projectile.Instantiate();
-			projectile projectileScript = bullet as projectile;
-			GetParent().AddChild(bullet);
-			bullet.Position = this.GlobalPosition;
-
-			// Manage bullet direction
-			if (characterSprite.FlipH == true)
-			{
-				bullet.Position += new Vector2(-30, -10);
-				projectileScript.direction = -1;
-			}
-			else
-			{
-				bullet.Position += new Vector2(30, -10);
-				projectileScript.direction = 1;
-			}
+			Shoot();
 		}
 
 		// Get the input direction and handle the movement/deceleration.
@@ -97,5 +90,27 @@ public partial class main_character : CharacterBody2D
 
 		Velocity = velocity;
 		MoveAndSlide();
+	}
+
+	private void Shoot()
+	{
+		Node2D bullet = (Node2D)Projectile.Instantiate();
+		projectile projectileScript = bullet as projectile;
+		GetParent().AddChild(bullet);
+		bullet.Position = this.GlobalPosition;
+
+		// Manage bullet direction
+		if (characterSprite.FlipH == true)
+		{
+			bullet.Position += new Vector2(-30, -10);
+			projectileScript.direction = -1;
+		}
+		else
+		{
+			bullet.Position += new Vector2(30, -10);
+			projectileScript.direction = 1;
+		}
+
+		timeAfterShot = 0;
 	}
 }
