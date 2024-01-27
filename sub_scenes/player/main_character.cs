@@ -14,8 +14,9 @@ public partial class main_character : CharacterBody2D
 	private const float TimeBetweenShots = 0.1f;
 	private double timeAfterShot = TimeBetweenShots;
 
-	// Get projectile asset
-	public PackedScene Projectile = GD.Load<PackedScene>("res://sub_scenes/projectile.tscn");
+    // Get projectile asset
+    [Export]
+	public PackedScene Projectile;
 
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
@@ -28,6 +29,12 @@ public partial class main_character : CharacterBody2D
 	///////              FUNCTIONS                 ///////
 	//////////////////////////////////////////////////////
 
+
+	// Called when the node enters the scene tree for the first time.
+	public override void _Ready()
+	{
+		AddToGroup("Player");
+	}
 
 	public override void _PhysicsProcess(double delta)
 	{

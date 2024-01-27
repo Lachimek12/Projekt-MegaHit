@@ -1,0 +1,28 @@
+[gd_scene load_steps=6 format=3 uid="uid://s2nf6fl7ql6u"]
+
+[ext_resource type="Script" path="res://sub_scenes/weapons/projectile.cs" id="1_xqvb6"]
+[ext_resource type="PackedScene" uid="uid://debyqprcylbfr" path="res://sub_scenes/effects/particles_wall_hit.tscn" id="2_u14c2"]
+[ext_resource type="Texture2D" uid="uid://bym2duibads4e" path="res://images/props/Box3.png" id="3_lb1p3"]
+[ext_resource type="PackedScene" uid="uid://bwbryolp1s1ju" path="res://sub_scenes/effects/trail.tscn" id="4_lp0mg"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rvwjf"]
+
+[node name="Projectile" type="Area2D"]
+position = Vector2(442, 380)
+collision_mask = 8
+script = ExtResource("1_xqvb6")
+Particle = ExtResource("2_u14c2")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("3_lb1p3")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rvwjf")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="Trail" parent="." instance=ExtResource("4_lp0mg")]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

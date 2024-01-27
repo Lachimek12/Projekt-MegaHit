@@ -13,6 +13,10 @@ public partial class enemy : CharacterBody2D
 	// Get the gravity from the project settings to be synced with RigidBody nodes.
 	public float gravity = ProjectSettings.GetSetting("physics/2d/default_gravity").AsSingle();
 
+    // Get particle asset
+    [Export]
+	public PackedScene Particle;
+
 
 	//////////////////////////////////////////////////////
 	///////              FUNCTIONS                 ///////
@@ -47,6 +51,14 @@ public partial class enemy : CharacterBody2D
 		if (area.IsInGroup("Bullets"))
 		{
 			area.QueueFree();
+
+			Node2D particle = (Node2D)Particle.Instantiate();
+			GpuParticles2D particle2D = (GpuParticles2D)particle;
+			particle.Position = GlobalPosition;
+			particle.Rotation = GlobalRotation;
+			particle2D.Emitting = true;
+			GetTree().CurrentScene.AddChild(particle);
+
 			QueueFree();
 		}
 	}

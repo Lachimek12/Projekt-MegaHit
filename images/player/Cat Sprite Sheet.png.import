@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cbs1b8ixrv0ns"
-path="res://.godot/imported/Terrain (16x16).png-13702635fb2e5766e3e231e05af9d47c.ctex"
+uid="uid://dcn2dhwo0yxby"
+path="res://.godot/imported/Cat Sprite Sheet.png-71a11665576c03bb5ed79c814933fe58.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://images/Terrain (16x16).png"
-dest_files=["res://.godot/imported/Terrain (16x16).png-13702635fb2e5766e3e231e05af9d47c.ctex"]
+source_file="res://images/player/Cat Sprite Sheet.png"
+dest_files=["res://.godot/imported/Cat Sprite Sheet.png-71a11665576c03bb5ed79c814933fe58.ctex"]
 
 [params]
 

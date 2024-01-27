@@ -1,7 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://cybdr3pkkb8m8"]
+[gd_scene load_steps=17 format=3 uid="uid://cybdr3pkkb8m8"]
 
-[ext_resource type="Script" path="res://sub_scenes/enemy.cs" id="1_ag8kq"]
-[ext_resource type="Texture2D" uid="uid://d235ctym5dgbh" path="res://images/Idle_enemy.png" id="1_c4r0l"]
+[ext_resource type="Script" path="res://sub_scenes/enemies/enemy.cs" id="1_ag8kq"]
+[ext_resource type="Texture2D" uid="uid://d235ctym5dgbh" path="res://images/enemies/Idle_enemy.png" id="1_c4r0l"]
+[ext_resource type="PackedScene" uid="uid://d0jjbvuxbsj4r" path="res://sub_scenes/effects/particles_explosion.tscn" id="2_vghkv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lgrtt"]
 atlas = ExtResource("1_c4r0l")
@@ -92,10 +93,14 @@ animations = [{
 size = Vector2(21, 24.6667)
 
 [node name="Enemy" type="CharacterBody2D"]
+modulate = Color(0.7, 0.7, 0.7, 1)
 texture_filter = 1
 position = Vector2(76, 49)
 scale = Vector2(3, 3)
+collision_layer = 2
+collision_mask = 11
 script = ExtResource("1_ag8kq")
+Particle = ExtResource("2_vghkv")
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
